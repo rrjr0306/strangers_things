@@ -12,12 +12,14 @@ const AccountForm = ({ setToken }) => {
 
 const onSubmitHandler =async(event) => {
     event.preventDefault();
-    try {
-        const { data } = await registerUser(username, password);
-        setToken(data.token)
+    const { error, token, message } = await registerUser(username, password);
+    
+    console.error(error);
+
+    setToken(token)
+
+    if (token) {
         navigate("/");
-    } catch(error) { 
-        console.error(error)
     }
 };
 

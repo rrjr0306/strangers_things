@@ -7,20 +7,21 @@ import "./App.css";
 const App = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(
-    window.localStorage.getItem("token") || ""
+    window.localStorage.getItem("token") || null
   );
   const [guest, setGuest] = useState(null);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
     const getPosts = async () => {
-      try {
-        const result = await fetchPosts();
-        setPosts(result);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+        const {error, posts} = await fetchPosts();
+
+        if (error) {
+            console.error(error);
+        }
+        setPosts(posts);
+      };
     getPosts();
   }, []);
 
@@ -36,7 +37,11 @@ const App = () => {
   }, [token]);
 
   useEffect(() => {
-    window.localStorage.setItem("token", token);
+    if (token) {
+        window.localStorage.setItem("token", token);
+    } else {
+        window.localStorage.removeItem("token");
+    }    
   }, [token]);
 
   const logOut = () => {
