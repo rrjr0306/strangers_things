@@ -35,3 +35,19 @@ export const registerUser = async(username, password) => {
     }
 };
 
+export const fetchGuest = async(token) => {
+    try {
+        const response = await fetch(`${BASEURL}/users/me`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              },
+        });
+        console.log("USER RESP BODY---------->", response)
+        const { data } = await response.json()
+        console.log("USER DATA-------->", data)
+        return data;
+    } catch {
+        console.log(error)
+    }
+}
