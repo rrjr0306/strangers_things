@@ -142,6 +142,57 @@ export const registerUser = async(username, password) => {
     }
 };
 
+export const loginUser = async(username, password) => {
+    try {
+        const { success, error, data } = await callAPI('/users/login', {
+            method: 'POST',
+            body: {
+                user: {
+                    username,
+                    password,
+                },
+            }
+        });
+
+        if (success) {
+            return {
+                error: null,
+                token: data.token,
+                message: data.message
+            };
+        } else {
+            return {
+                error: error.message,
+                token: null,
+                message: null
+            }
+        }
+
+    //     const response = await fetch(`${BASEURL}/users/register`, {
+    //         method: "POST",
+    //         headers: makeHeaders(),
+    //         body: JSON.stringify({
+    //         user: {
+    //             username,
+    //             password,
+    //         }
+    //         })
+    // })
+    // console.log("RESPONSE---------->", response)
+    // const data = await response.json();
+    // console.log("----------data---------", data)
+    // return data;
+    } catch(error) {
+        console.error("There was an error logging in the user", error);
+
+        return {
+            error: 'Log in Failed',
+            token: null,
+            message: null
+        };
+    }
+};
+
 export const fetchGuest = async(token) => {
     try {
         const {success, error, data} = await callAPI('/users/me', {
@@ -190,6 +241,9 @@ export const createPost = async (
             price,
             willDeliver,
         };
+
+
+
         const {success, error, data} = await callAPI('/posts', {
             token: token,
             method: 'POST',

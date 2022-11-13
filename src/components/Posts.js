@@ -9,7 +9,7 @@ const Posts = ({posts}) => {
     console.log("posts", posts)
     return (
         <>
-        <Link to="/posts/create" className="ui button">Create Vacation</Link>
+        <Link to="/posts/create" className="ui button">Post Item</Link>
         <div className="posts-container">
             {posts.map((post) => {
                 return (<PostItem key={post._id} post={post}/>);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Home, Posts, AccountForm } from "./components";
+import { Home, Posts, AccountForm, CreatePostFrom } from "./components";
 import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import { fetchPosts, fetchGuest } from "./api/api";
 import "./App.css";
@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-        const {error, posts} = await fetchPosts();
+        const {error, posts} = await fetchPosts(token);
 
         if (error) {
             console.error(error);
@@ -77,6 +77,7 @@ const App = () => {
 
       <Routes>
         <Route exact path="/" element={<Home guest={guest} />} />
+        <Route path="/posts/create" element={<CreatePostFrom token={token} setPosts={setPosts} />} />
         <Route path="/posts" element={<Posts posts={posts} />} />
         <Route
           path="/account/:action"
