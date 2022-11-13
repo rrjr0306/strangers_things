@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Children } from "react/cjs/react.production.min";
 import { deletePost } from "../api/api";
 
-const PostItem = ({ post, setPosts, token }) => {
+const PostItem = ({ post, children }) => {
   // post.messages = [
   //     {
   //         "_id": "5e8d1fd747b6ce0017600594",
@@ -15,19 +16,9 @@ const PostItem = ({ post, setPosts, token }) => {
   //     }
   // ]
 
-  const handleDeleteClick = async (postId) => {
-    await deletePost(token, postId);
-    setPosts((prevPost) => prevPost.filter((post) => post._id !== postId));
-  };
-
   return (
     <div className="ui card">
       <div className="content">
-        {post.isAuthor ? (
-          <div className="right floated aligned header">
-            <span>Mine</span>
-          </div>
-        ) : null}
         <div className="centered aligned header">{post.title}</div>
         <div className="center aligned description">
           <p>{post.description}</p>
@@ -38,15 +29,9 @@ const PostItem = ({ post, setPosts, token }) => {
             <Link to="">View Item</Link>
           </div>
         </div>
-      <div role="list" className="ui divided relaxed list">
-        {post.isAuthor ? (
-          <button 
-            className="negative ui button left floated"
-            onClick={() => handleDeleteClick(post._id)}
-          >Delete</button>
-        ) : null}
-
-        {/* {post.messages.map((message) => {
+        <div role="list" className="ui divided relaxed list">
+          {children}
+          {/* {post.messages.map((message) => {
                     return (
                         <div role="listitem" className="item">
                             <span>
