@@ -78,7 +78,7 @@ const App = () => {
       <Routes>
         <Route exact path="/" element={<Home guest={guest} />} />
         <Route path="/posts/create" element={<CreatePostFrom token={token} setPosts={setPosts} />} />
-        <Route path="/posts" element={<Posts posts={posts} />} />
+        <Route path="/posts" element={<Posts posts={posts} token={token} setPosts={setPosts} />} />
         <Route
           path="/account/:action"
           element={<AccountForm setToken={setToken} />}

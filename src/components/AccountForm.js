@@ -12,7 +12,7 @@ const AccountForm = ({ setToken }) => {
 
 const onSubmitHandler =async(event) => {
     event.preventDefault();
-    const authFn = action ==== "register" ? registerUser : loginUser;
+    const authFn = action === "register" ? registerUser : loginUser;
     const { error, token, message } = await authFn(username, password);
     
     console.error(error);
