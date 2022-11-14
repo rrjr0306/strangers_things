@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Home, Posts, AccountForm, CreatePostFrom } from "./components";
+import { Home, Posts, PostDetail, AccountForm, CreatePostFrom } from "./components";
 import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import { fetchPosts, fetchGuest } from "./api/api";
 import "./App.css";
@@ -23,7 +23,7 @@ const App = () => {
         setPosts(posts);
       };
     getPosts();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (token) {
@@ -46,8 +46,8 @@ const App = () => {
 
   const logOut = () => {
     setToken("");
+    setGuest(null);    
     navigate("/");
-    setGuest(null);
   }
 
   return (
@@ -78,6 +78,7 @@ const App = () => {
       <Routes>
         <Route exact path="/" element={<Home guest={guest} />} />
         <Route path="/posts/create" element={<CreatePostFrom token={token} setPosts={setPosts} />} />
+        <Route path="/posts/:postId" element={<PostDetail posts={posts} token={token} fetchPosts={fetchPosts}/>} />
         <Route path="/posts" element={<Posts posts={posts} token={token} setPosts={setPosts} />} />
         <Route
           path="/account/:action"

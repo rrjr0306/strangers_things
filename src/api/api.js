@@ -1,6 +1,17 @@
 export const BASEURL =
   "https://strangers-things.herokuapp.com/api/2207-FTB-ET-WEB-PT";
 
+const makeHeaders = (token) => {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+    console.log(`Bearer ${token}`)
+  }
+  return headers;
+};
+
 const callAPI = async (endpointPath, defaultOptions = {}) => {
   const { token, method, body } = defaultOptions;
   const options = {
@@ -293,12 +304,49 @@ export const deletePost = async (token, postId) => {
   }
 };
 
-const makeHeaders = (token) => {
-  const headers = {
-    "Content-Type": "application/json",
-  };
-  if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
+export const addMessage = async (token, postId, messageText) => {
+  try {
+    const { success, error, data } = await callAPI(
+      `/posts/${postId}/messages`,
+      {
+        token: token,
+        method: "POST",
+        body: {
+          message: {
+            content: messageText,
+          },
+        },
+      }
+    );
+
+    if (success) {
+      return {
+        success: success,
+        error: null,
+        data: {
+            message: messageText,
+        }    
+      };
+    } else {
+      return {
+        success: success,
+        error: error.message,
+        data: {
+            message: null
+        }    
+      };
+    }
+  } catch (error) {
+    console.error(`POST /posts/${postId}/messages failed:`, error);
+
+    return {
+      success: false,
+      error: "Failed to send message",
+      data: {
+        message: null
+      }   
+    };
   }
-  return headers;
 };
+
+

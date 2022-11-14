@@ -7,7 +7,7 @@ import "./Posts.css";
 
 const Posts = ({ posts, setPosts, token }) => {
   //map over posts here!
-  console.log("posts", posts);
+
 
   const handleDeleteClick = async (postId) => {
     await deletePost(token, postId);
@@ -27,7 +27,7 @@ const Posts = ({ posts, setPosts, token }) => {
                 <div className="right floated aligned header">
                   <span>Mine</span>
                 </div>
-              ) : null}
+              ) : <div></div>}
               {post.isAuthor ? (
                 <button
                   className="negative ui button left floated"
@@ -35,7 +35,7 @@ const Posts = ({ posts, setPosts, token }) => {
                 >
                   Delete
                 </button>
-              ) : null}
+              ) : <div></div>}
             </PostItem>
           );
         })}
