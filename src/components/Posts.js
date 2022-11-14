@@ -7,57 +7,56 @@ import "./Posts.css";
 
 const Posts = ({ posts, setPosts, token }) => {
   //map over posts here!
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filteredPosts, setFilteredPosts] = useState(posts);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState(posts);
 
-    useEffect(() => {
-        if (searchTerm) {
-            const searchTerms = searchTerm.toLowerCase().trim().split(" ");
-            const filtered = posts.filter((postsObject) => {
-                const filterValues = [
-                    postsObject.title,
-                    postsObject.description,
-                    postsObject.location,
-                    postsObject.price,
-                ];
+  useEffect(() => {
+    if (searchTerm) {
+      const searchTerms = searchTerm
+        .toLowerCase()
+        .trim()
+        .split(" ");
+      const filtered = posts.filter((postsObject) => {
+        const filterValues = [
+          postsObject.title,
+          postsObject.description,
+          postsObject.location,
+          postsObject.price,
+        ];
 
-                for (let value of filterValues) {
-                    const valueLower = value.toLowerCase().trim();
+        for (let value of filterValues) {
+          const valueLower = value.toLowerCase().trim();
 
-                    for (let term of searchTerms) {
-                        if (
-                            valueLower.length > 0 &&
-                            term.length > 0 &&
-                            valueLower.includes(term)
-                        ) {
-                            return true;
-                        }
-                    }
-                }
+          for (let term of searchTerms) {
+            if (
+              valueLower.length > 0 &&
+              term.length > 0 &&
+              valueLower.includes(term)
+            ) {
+              return true;
+            }
+          }
+        }
 
-                return false;
-            })
+        return false;
+      });
 
+      // const filtered = posts.filter((postObject) => {
+      //     // console.log('postObject', postObject)
 
+      //     if (postObject.description === searchTerm) {
+      //         return true;
+      //     }
 
-
-            // const filtered = posts.filter((postObject) => {
-            //     // console.log('postObject', postObject)
-
-            //     if (postObject.description === searchTerm) {
-            //         return true;
-            //     }
-
-            //     return false;
-            // });
-            setFilteredPosts(filtered);
-            console.log('filtered!!!', filteredPosts)
-        } else {
-            setFilteredPosts(posts);
-            console.log('not filtered!!!!', filteredPosts)
-        } 
-    },[searchTerm, posts]);    
-
+      //     return false;
+      // });
+      setFilteredPosts(filtered);
+      console.log("filtered!!!", filteredPosts);
+    } else {
+      setFilteredPosts(posts);
+      console.log("not filtered!!!!", filteredPosts);
+    }
+  }, [searchTerm, posts]);
 
   const handleDeleteClick = async (postId) => {
     await deletePost(token, postId);
@@ -66,35 +65,44 @@ const Posts = ({ posts, setPosts, token }) => {
 
   return (
     <>
-        <div class="ui icon input">
-      <input 
-        type='text' 
-        placeholder="Search..." 
-        value={searchTerm} 
-        onChange={(event) => setSearchTerm(event.target.value)} 
-       />
-       <i className="search icon"></i>
-       </div>  
-      <Link to="/posts/create" className="ui button">
+    <div class="button-search">
+      <div class="ui icon input">
+        <input
+          style={{fontFamily: 'itc-benguiat, serif'}}
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+        />
+        <i className="search icon"></i>
+      </div>
+      <Link to="/posts/create" className="ui button" style={{fontFamily: 'itc-benguiat, serif'}}>
         Post Item
       </Link>
+    </div>
+
       <div className="posts-container">
         {filteredPosts.map((post) => {
           return (
-            <PostItem key={post._id} post={post} >
+            <PostItem key={post._id} post={post}>
               {post.isAuthor ? (
                 <div className="right floated aligned header">
                   <span>Mine</span>
                 </div>
-              ) : <div></div>}
+              ) : (
+                <div></div>
+              )}
               {post.isAuthor ? (
                 <button
+                  style={{fontFamily: 'itc-benguiat, serif'}}
                   className="negative ui button left floated"
                   onClick={() => handleDeleteClick(post._id)}
                 >
                   Delete
                 </button>
-              ) : <div></div>}
+              ) : (
+                <div></div>
+              )}
             </PostItem>
           );
         })}

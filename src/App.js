@@ -61,7 +61,7 @@ const App = () => {
         </Link>
         <div className="right menu">
           {token ? (
-            <button onClick={logOut} className="item">Log Out</button>
+            <button style={{fontFamily: 'itc-benguiat, serif'}} onClick={logOut} className="item">Log Out</button>
           ) : (
             <>
               <Link className="item" to="/account/login">

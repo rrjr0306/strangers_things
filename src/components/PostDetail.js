@@ -42,13 +42,14 @@ const ItemDetail = (props) => {
     <form 
         className="message-form" 
         onSubmit={handleOnSubmit}>
-        <input 
+        <input
+            style={{fontFamily: 'itc-benguiat, serif'}} 
             type="text" 
             placeholder="New Message" 
             value={messageText}
             onChange={(event) => 
                 setMessageText(event.target.value)}/>
-        <button type="submit">Send Message</button>
+        <button style={{fontFamily: 'itc-benguiat, serif'}} type="submit">Send Message</button>
         {errorMessage ?
         <p style={{color: 'red', backgroundColor: 'pink'}}>Operation Failed: {errorMessage}</p>
         : null}

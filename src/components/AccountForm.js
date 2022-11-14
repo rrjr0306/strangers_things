@@ -27,10 +27,11 @@ const onSubmitHandler =async(event) => {
 const title = action === "login" ? "Log In" : "Sign Up"
   return (
     <form className="ui form" onSubmit={onSubmitHandler}>
-      <h1>{title}</h1>
+      <h1 style={{fontFamily: 'itc-benguiat, serif'}}>{title}</h1>
       <div className="field">
         <label>Username</label>
         <input
+          style={{fontFamily: 'itc-benguiat, serif'}}
           type="text"
           value={username}
           placeholder="username"
@@ -40,6 +41,7 @@ const title = action === "login" ? "Log In" : "Sign Up"
         />
         <label>Password</label>
         <input
+          style={{fontFamily: 'itc-benguiat, serif'}}
           type="password"
           value={password}
           placeholder="password"
@@ -48,7 +50,7 @@ const title = action === "login" ? "Log In" : "Sign Up"
           onChange={(event) => setPassword(event.target.value)}
         />
       </div>
-      <button className="ui button" type="submit">
+      <button style={{fontFamily: 'itc-benguiat, serif'}} className="ui button" type="submit">
         {title}
       </button>
     </form>

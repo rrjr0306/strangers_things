@@ -16,12 +16,12 @@ const PostItem = ({ post, children }) => {
 //   ]
     // console.log("post!!!!!!", post)
   return (
-    <div className="ui card">
+    <div className="ui black segment">
       <div className="content">
-        <div className="centered aligned header">{post.title}</div>
+        <div style={{fontFamily: 'itc-benguiat, serif'}} className="ui large header">{post.title}</div>
         <div className="center aligned description">
           <p>{post.description}</p>
-          <p>{post.price}</p>
+          <p><b style={{fontSize: 'medium', color: 'red'}}>Price: </b> {post.price}</p>
         </div>
         <div className="extra-content">
           <div className="center aligned header">
