@@ -14,7 +14,7 @@ const PostItem = ({ post, children }) => {
 //           "__v": 0
 //       }
 //   ]
-    console.log("post!!!!!!", post)
+    // console.log("post!!!!!!", post)
   return (
     <div className="ui card">
       <div className="content">

@@ -7,7 +7,7 @@ const makeHeaders = (token) => {
   };
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
-    console.log(`Bearer ${token}`)
+    // console.log(`Bearer ${token}`)
   }
   return headers;
 };

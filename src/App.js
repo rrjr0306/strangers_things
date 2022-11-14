@@ -29,7 +29,7 @@ const App = () => {
     if (token) {
         const getGuest = async () => {
             const { username } = await fetchGuest(token);
-            console.log("username", username);
+            // console.log("username", username);
             setGuest(username)
         };
         getGuest();
